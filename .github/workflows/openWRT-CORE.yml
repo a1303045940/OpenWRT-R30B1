@@ -1,36 +1,36 @@
 #云编译公用核心
-name: OWRT-CORE
+name: openWRT-CORE
 
 on:
   #公用核心标识
   workflow_call:
     inputs:
-      OWRT_TARGET:
+      openWRT_TARGET:
         required: true
         type: string
-      OWRT_THEME:
+      openWRT_THEME:
         required: true
         type: string
-      OWRT_NAME:
+      openWRT_NAME:
         required: true
         type: string
-      OWRT_URL:
+      openWRT_URL:
         required: true
         type: string
-      OWRT_PW:
+      openWRT_PW:
         required: true
         type: string
-      OWRT_IP:
+      openWRT_IP:
         required: true
         type: string
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  OWRT_TARGET: ${{inputs.OWRT_TARGET}}
-  OWRT_THEME: ${{inputs.OWRT_THEME}}
-  OWRT_NAME: ${{inputs.OWRT_NAME}}
-  OWRT_URL: ${{inputs.OWRT_URL}}
-  OWRT_PW: ${{inputs.OWRT_PW}}
-  OWRT_IP: ${{inputs.OWRT_IP}}
+  openWRT_TARGET: ${{inputs.openWRT_TARGET}}
+  openWRT_THEME: ${{inputs.openWRT_THEME}}
+  openWRT_NAME: ${{inputs.openWRT_NAME}}
+  openWRT_URL: ${{inputs.openWRT_URL}}
+  openWRT_PW: ${{inputs.openWRT_PW}}
+  openWRT_IP: ${{inputs.openWRT_IP}}
 
 jobs:
   owrt_core:
@@ -57,16 +57,16 @@ jobs:
 
       - name: Initialization Values
         run: |
-          export OWRT_DATE=$(TZ=UTC-8 date +"%y.%m.%d_%H.%M.%S")
-          export OWRT_SOURCE=$(echo $OWRT_URL | cut -d '/' -f 5)
-          export OWRT_TYPE=$(sed -n "1{s/^#//;s/\r$//;p;q}" $GITHUB_WORKSPACE/Config/$OWRT_TARGET.txt)
+          export openWRT_DATE=$(TZ=UTC-8 date +"%y.%m.%d_%H.%M.%S")
+          export openWRT_SOURCE=$(echo $openWRT_URL | cut -d '/' -f 5)
+          export openWRT_TYPE=$(sed -n "1{s/^#//;s/\r$//;p;q}" $GITHUB_WORKSPACE/Config/$openWRT_TARGET.txt)
 
-          echo "OWRT_SOURCE=$OWRT_SOURCE" >> $GITHUB_ENV
-          echo "OWRT_TARGET=$OWRT_TARGET" >> $GITHUB_ENV
-          echo "OWRT_DATE=$OWRT_DATE" >> $GITHUB_ENV
-          echo "OWRT_TYPE=$OWRT_TYPE" >> $GITHUB_ENV
-          echo "OWRT_PW=$OWRT_PW" >> $GITHUB_ENV
-          echo "OWRT_IP=$OWRT_IP" >> $GITHUB_ENV
+          echo "openWRT_SOURCE=$openWRT_SOURCE" >> $GITHUB_ENV
+          echo "openWRT_TARGET=$openWRT_TARGET" >> $GITHUB_ENV
+          echo "openWRT_DATE=$openWRT_DATE" >> $GITHUB_ENV
+          echo "openWRT_TYPE=$openWRT_TYPE" >> $GITHUB_ENV
+          echo "openWRT_PW=$openWRT_PW" >> $GITHUB_ENV
+          echo "openWRT_IP=$openWRT_IP" >> $GITHUB_ENV
 
       - name: Check Scripts
         run: |
@@ -75,9 +75,9 @@ jobs:
           chmod +x ./*.sh
           dos2unix ./*.sh
 
-      - name: Clone OWRT Code
+      - name: Clone openWRT Code
         run: |
-          git clone --depth=1 --single-branch $OWRT_URL ./owrt
+          git clone --depth=1 --single-branch $openWRT_URL ./owrt
 
       - name: Update Feeds
         run: |
@@ -101,7 +101,7 @@ jobs:
           cd ./owrt
 
           rm -rf ./tmp* ./.config*
-          cat $GITHUB_WORKSPACE/Config/$OWRT_TARGET.txt $GITHUB_WORKSPACE/Config/General.txt >> .config
+          cat $GITHUB_WORKSPACE/Config/$openWRT_TARGET.txt $GITHUB_WORKSPACE/Config/General.txt >> .config
 
           $GITHUB_WORKSPACE/Scripts/Extras.sh
 
@@ -137,7 +137,7 @@ jobs:
 
           rm -rf $(find ./bin/targets/ -iregex ".*\(json\|manifest\|buildinfo\|sha256sums\|packages\)$")
           cp -rf $(find ./bin/targets/ -type f -iname "*.*") ./upload/
-          cp -rf ./.config ./upload/Config_"$OWRT_TARGET"_"$OWRT_SOURCE"_"$OWRT_DATE".txt
+          cp -rf ./.config ./upload/Config_"$openWRT_TARGET"_"$openWRT_SOURCE"_"$openWRT_DATE".txt
 
           cd ./upload
 
@@ -146,18 +146,18 @@ jobs:
       - name: Release Firmware
         uses: softprops/action-gh-release@master
         with:
-          tag_name: ${{env.OWRT_TARGET}}_${{env.OWRT_SOURCE}}_${{env.OWRT_DATE}}
+          tag_name: ${{env.openWRT_TARGET}}_${{env.openWRT_SOURCE}}_${{env.openWRT_DATE}}
           files: ./owrt/upload/*.*
           body: |
             这是个平台固件包，内含多个设备！
             请注意选择你需要的设备固件！
             不要问，更就完事了！
 
-            源码：${{env.OWRT_SOURCE}}
-            平台：${{env.OWRT_TARGET}}
-            设备：${{env.OWRT_TYPE}}
-            密码：${{env.OWRT_PW}}
-            地址：${{env.OWRT_IP}}
+            源码：${{env.openWRT_SOURCE}}
+            平台：${{env.openWRT_TARGET}}
+            设备：${{env.openWRT_TYPE}}
+            密码：${{env.openWRT_PW}}
+            地址：${{env.openWRT_IP}}
 
       - name: Delete Old Releases
         uses: dev-drprasad/delete-older-releases@master
