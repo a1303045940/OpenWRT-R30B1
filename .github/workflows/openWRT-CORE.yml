@@ -33,7 +33,7 @@ env:
   openWRT_IP: ${{inputs.openWRT_IP}}
 
 jobs:
-  owrt_core:
+  openwrt_core:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Projects
@@ -77,18 +77,18 @@ jobs:
 
       - name: Clone openWRT Code
         run: |
-          git clone --depth=1 --single-branch $openWRT_URL ./owrt
+          git clone --depth=1 --single-branch $openWRT_URL ./openwrt
 
       - name: Update Feeds
         run: |
-          cd ./owrt
+          cd ./openwrt
 
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
       - name: Custom Scripts
         run: |
-          cd ./owrt
+          cd ./openwrt
 
           $GITHUB_WORKSPACE/Scripts/Settings.sh
 
@@ -98,7 +98,7 @@ jobs:
 
       - name: Custom Settings
         run: |
-          cd ./owrt
+          cd ./openwrt
 
           rm -rf ./tmp* ./.config*
           cat $GITHUB_WORKSPACE/Config/$openWRT_TARGET.txt $GITHUB_WORKSPACE/Config/General.txt >> .config
@@ -109,19 +109,19 @@ jobs:
 
       - name: Cleanup Toolchain
         run: |
-          cd ./owrt
+          cd ./openwrt
 
           make dirclean
 
       - name: Download Packages
         run: |
-          cd ./owrt
+          cd ./openwrt
 
           make download -j$(nproc)
 
       - name: Compile Firmware
         run: |
-          cd ./owrt
+          cd ./openwrt
 
           make -j$(nproc) || make -j1 V=s
 
@@ -133,7 +133,7 @@ jobs:
 
       - name: Package Firmware
         run: |
-          cd ./owrt && mkdir ./upload
+          cd ./openwrt && mkdir ./upload
 
           rm -rf $(find ./bin/targets/ -iregex ".*\(json\|manifest\|buildinfo\|sha256sums\|packages\)$")
           cp -rf $(find ./bin/targets/ -type f -iname "*.*") ./upload/
@@ -147,7 +147,7 @@ jobs:
         uses: softprops/action-gh-release@master
         with:
           tag_name: ${{env.openWRT_TARGET}}_${{env.openWRT_SOURCE}}_${{env.openWRT_DATE}}
-          files: ./owrt/upload/*.*
+          files: ./openwrt/upload/*.*
           body: |
             这是个平台固件包，内含多个设备！
             请注意选择你需要的设备固件！
