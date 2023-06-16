@@ -17,6 +17,8 @@ git clone --depth=1 --single-branch --branch "luci" https://github.com/xiaorouji
 git clone --depth=1 --single-branch --branch "packages" https://github.com/xiaorouji/openwrt-passwall.git ./pw_packages
 #unblockneteasemusic
 git clone --depth=1 --single-branch --branch "master" https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git ./pw_packages
+#xlnetacc
+git clone --depth=1 --single-branch --branch "master" https://github.com/a7909a/luci-app-xlnetacc.git ./pw_packages
 
 #预置OpenClash内核和GEO数据
 export CORE_VER=https://raw.githubusercontent.com/vernesong/OpenClash/core/dev/core_version
