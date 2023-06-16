@@ -13,9 +13,10 @@ git clone --depth=1 --single-branch https://github.com/linkease/nas-packages-luc
 #Open Clash
 git clone --depth=1 --single-branch --branch "dev" https://github.com/vernesong/OpenClash.git
 #Pass Wall
-git clone --depth=1 --single-branch --branch "luci" https://github.com/xiaorouji/openwrt-passwall.git ./pw_luci
-git clone --depth=1 --single-branch --branch "packages" https://github.com/xiaorouji/openwrt-passwall.git ./pw_packages
+#git clone --depth=1 --single-branch --branch "luci" https://github.com/xiaorouji/openwrt-passwall.git ./pw_luci
+#git clone --depth=1 --single-branch --branch "packages" https://github.com/xiaorouji/openwrt-passwall.git ./pw_packages
 #unblockneteasemusic
+rm -rf ../../customfeeds/luci/applications/luci-app-unblockmusic
 git clone --depth=1 --single-branch --branch "master" https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git
 #xlnetacc
 git clone --depth=1 --single-branch --branch "master" https://github.com/a7909a/luci-app-xlnetacc.git
