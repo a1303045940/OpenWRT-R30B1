@@ -11,6 +11,8 @@ sed -i "s/hostname='.*'/hostname='$openWRT_NAME'/g" ./package/base-files/files/b
 #修改默认时区
 sed -i "s/timezone='.*'/timezone='CST-8'/g" ./package/base-files/files/bin/config_generate
 sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" ./package/base-files/files/bin/config_generate
+#增加CPU温度显示
+sed -i '710 a <tr><td width="33%"><%:CPU Temperature%></td><td><%=luci.sys.exec("cut -c1-2 /sys/class/thermal/thermal_zone0/temp")%>&deg;C</td></tr>' /usr/lib/lua/luci/view/admin_status/index.htm
 
 #根据源码来修改
 if [[ $openWRT_URL == *"lede"* ]] ; then
