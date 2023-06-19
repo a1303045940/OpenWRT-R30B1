@@ -23,6 +23,6 @@ jobs:
       #默认密码，仅作展示，请勿乱改
       openWRT_PW: 无
       #默认地址
-      openWRT_IP: 192.168.0.1
+      openWRT_IP: 192.168.1.1
       #默认源码
       openWRT_URL: https://github.com/abandon-xyz/lede.git
