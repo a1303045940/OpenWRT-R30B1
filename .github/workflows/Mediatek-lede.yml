@@ -2,9 +2,6 @@
 name: Mediatek-lede
 
 on:
-  #自动编译：每天早上4点
-  schedule:
-    - cron: 0 18 * * Sun
   #手动编译
   workflow_dispatch:
 
@@ -22,11 +19,10 @@ jobs:
       #默认主题
       openWRT_THEME: design
       #默认主机名
-      openWRT_NAME: openWRT
+      openWRT_NAME: WR30U
       #默认密码，仅作展示，请勿乱改
       openWRT_PW: 无
       #默认地址
-      openWRT_IP: 192.168.2.1
+      openWRT_IP: 192.168.0.1
       #默认源码
       openWRT_URL: https://github.com/abandon-xyz/lede.git
-      
