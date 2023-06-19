@@ -16,7 +16,7 @@ CONFIG_PACKAGE_kmod-mtd-rw=y
 CONFIG_PACKAGE_kmod-thermal=y
 #增加插件
 CONFIG_PACKAGE_luci-app-turboacc=y
-CONFIG_PACKAGE_luci-app-openclash=y
+CONFIG_PACKAGE_luci-app-vssr=y
 CONFIG_PACKAGE_luci-app-fileassistant=y
 CONFIG_PACKAGE_luci-theme-design=y
 CONFIG_PACKAGE_luci-app-design-config=y
@@ -27,6 +27,7 @@ CONFIG_PACKAGE_luci-app-wireguard=n
 CONFIG_PACKAGE_luci-app-ipsec-vpnd=n
 CONFIG_PACKAGE_luci-app-adbyby-plus=n
 CONFIG_PACKAGE_luci-app-accesscontrol=n
+CONFIG_PACKAGE_luci-app-openclash=n
 CONFIG_DEFAULT_luci-app-ssr-plus=n
 CONFIG_PACKAGE_luci-app-unblockmusic_INCLUDE_UnblockNeteaseMusic_NodeJS=n
 CONFIG_PACKAGE_luci-app-unblockmusic=n
