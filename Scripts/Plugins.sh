@@ -17,8 +17,11 @@ git clone --depth=1 --single-branch https://github.com/gngpp/luci-app-design-con
 #git clone --depth=1 --single-branch --branch "dev" https://github.com/vernesong/OpenClash.git
 
 #Pass Wall
-#git clone --depth=1 --single-branch --branch "luci" https://github.com/xiaorouji/openwrt-passwall.git ./pw_luci
-#git clone --depth=1 --single-branch --branch "packages" https://github.com/xiaorouji/openwrt-passwall.git ./pw_packages
+git clone --depth=1 --single-branch --branch "luci" https://github.com/xiaorouji/openwrt-passwall.git ./pw_luci
+git clone --depth=1 --single-branch --branch "packages" https://github.com/xiaorouji/openwrt-passwall.git ./pw_packages
+
+src-git helloworld https://github.com/fw876/helloworld
+src-git passwall https://github.com/xiaorouji/openwrt-passwall
 
 #unblockneteasemusic
 #rm -rf ../../customfeeds/luci/applications/luci-app-unblockmusic
@@ -31,5 +34,7 @@ git clone --depth=1 --single-branch https://github.com/gngpp/luci-app-design-con
 git clone --depth=1 --single-branch --branch "master" https://github.com/rufengsuixing/luci-app-adguardhome.git
 
 #vssr
+rm -rf package/helloworld
+git clone --depth=1 https://github.com/fw876/helloworld.git package/helloworld
 git clone --depth=1 --single-branch --branch "master" https://github.com/jerrykuku/lua-maxminddb.git
 git clone --depth=1 --single-branch --branch "master" https://github.com/jerrykuku/luci-app-vssr.git
