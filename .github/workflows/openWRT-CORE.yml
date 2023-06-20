@@ -17,6 +17,9 @@ on:
       openWRT_URL:
         required: true
         type: string
+      openWRT_BRANCH:
+        required: false
+        type: string
       openWRT_PW:
         required: true
         type: string
@@ -29,6 +32,7 @@ env:
   openWRT_THEME: ${{inputs.openWRT_THEME}}
   openWRT_NAME: ${{inputs.openWRT_NAME}}
   openWRT_URL: ${{inputs.openWRT_URL}}
+  openWRT_BRANCH: ${{inputs.openWRT_BRANCH}}
   openWRT_PW: ${{inputs.openWRT_PW}}
   openWRT_IP: ${{inputs.openWRT_IP}}
 
@@ -77,7 +81,7 @@ jobs:
 
       - name: Clone openWRT Code
         run: |
-          git clone --depth=1 --single-branch $openWRT_URL ./openwrt
+          git clone --depth=1 --single-branch --branch $openWRT_BRANCH $openWRT_URL ./openwrt
 
       - name: Update Feeds
         run: |

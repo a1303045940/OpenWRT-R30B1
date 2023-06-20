@@ -26,3 +26,5 @@ jobs:
       openWRT_IP: 192.168.1.1
       #默认源码
       openWRT_URL: https://github.com/abandon-xyz/lede.git
+      #默认分支
+      openWRT_BRANCH: mtk
