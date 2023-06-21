@@ -24,7 +24,7 @@ src-git helloworld https://github.com/fw876/helloworld
 src-git passwall https://github.com/xiaorouji/openwrt-passwall
 
 #unblockneteasemusic
-#rm -rf ../../customfeeds/luci/applications/luci-app-unblockmusic
+rm -rf ../../customfeeds/luci/applications/luci-app-unblockmusic
 #git clone --depth=1 --single-branch --branch "master" https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git
 
 #xlnetacc
