@@ -154,7 +154,8 @@ jobs:
           files: ./openwrt/upload/*.*
           body: |
             wr30u固件
-
+            
+            源码地址: ${{env.openWRT_URL}}
             源码：${{env.openWRT_SOURCE}}
             平台：${{env.openWRT_TARGET}}
             设备：${{env.openWRT_TYPE}}
