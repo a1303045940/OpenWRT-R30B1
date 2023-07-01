@@ -27,6 +27,7 @@ jobs:
       #默认源码
       #https://github.com/abandon-xyz/lede.git
       #https://github.com/aiamadeus/lede.git
-      openWRT_URL: https://github.com/aiamadeus/lede.git
+      #https://github.com/coolsnowwolf/lede.git
+      openWRT_URL: https://github.com/coolsnowwolf/lede.git
       #默认分支
-      openWRT_BRANCH: mtk
+      openWRT_BRANCH: master
