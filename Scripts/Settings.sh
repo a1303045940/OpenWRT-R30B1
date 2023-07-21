@@ -17,5 +17,5 @@ sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" 
 #根据源码来修改
 if [[ $openWRT_URL == *"lede"* ]] ; then
   #修改默认时间格式
-  sed -i 's/os.date()/os.date("%Y-%m-%d %H:%M:%S %A")/g' $(find ./package/*/autocore/files/ -type f -name "index.htm")
+  sed -i 's/os.date()/os.date("%Y-%m-%d %H:%M 星期%w")/g' $(find ./package/*/autocore/files/ -type f -name "index.htm")
 fi
