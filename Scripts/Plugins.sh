@@ -33,9 +33,3 @@ rm -rf package/helloworld
 git clone --depth=1 --single-branch --branch "packages" https://github.com/xiaorouji/openwrt-passwall
 git clone --depth=1 --single-branch --branch "master" https://github.com/jerrykuku/lua-maxminddb.git
 git clone --depth=1 --single-branch --branch "master" https://github.com/jerrykuku/luci-app-vssr.git
-
-
-# 使用 sed 命令将 CONFIG_PACKAGE_luci-app-ssrplus 设置为 n
-cd ~/openwrt
-sed -i '/CONFIG_PACKAGE_luci-app-ssrplus/d' .config
-echo 'CONFIG_PACKAGE_luci-app-ssrplus=n' >> .config
