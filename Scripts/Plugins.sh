@@ -28,7 +28,14 @@ rm -rf ../../customfeeds/luci/applications/luci-app-unblockmusic
 #git clone --depth=1 --single-branch --branch "master" https://github.com/rufengsuixing/luci-app-adguardhome.git
 
 #vssr
+
 rm -rf package/helloworld
-git clone --depth=1 https://github.com/fw876/helloworld.git package/helloworld
+git clone --depth=1 --single-branch --branch "packages" https://github.com/xiaorouji/openwrt-passwall
 git clone --depth=1 --single-branch --branch "master" https://github.com/jerrykuku/lua-maxminddb.git
 git clone --depth=1 --single-branch --branch "master" https://github.com/jerrykuku/luci-app-vssr.git
+
+
+# 使用 sed 命令将 CONFIG_PACKAGE_luci-app-ssrplus 设置为 n
+cd ~/openwrt
+sed -i '/CONFIG_PACKAGE_luci-app-ssrplus/d' .config
+echo 'CONFIG_PACKAGE_luci-app-ssrplus=n' >> .config
