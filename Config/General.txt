@@ -13,6 +13,9 @@ CONFIG_PACKAGE_luci-lib-ipkg=y
 
 CONFIG_PACKAGE_kmod-mtd-rw=y
 CONFIG_PACKAGE_kmod-thermal=y
+
+CONFIG_PACKAGE_mosdns=y
+
 #增加插件
 CONFIG_PACKAGE_luci-app-turboacc=y
 CONFIG_PACKAGE_luci-app-fileassistant=y
@@ -23,6 +26,7 @@ CONFIG_PACKAGE_luci-app-design-config=y
 #vssr
 CONFIG_PACKAGE_luci-app-vssr=y
 CONFIG_PACKAGE_luci-i18n-vssr-zh-cn=y
+CONFIG_PACKAGE_luci-app-mosdns=y
 
 #删除插件
 CONFIG_PACKAGE_ipv6helper=n
