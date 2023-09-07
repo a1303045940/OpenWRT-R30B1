@@ -14,6 +14,41 @@ sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" 
 #增加CPU温度显示
 # sed -i '710 a <tr><td width="33%"><%:CPU Temperature%></td><td><%=luci.sys.exec("cut -c1-2 /sys/class/thermal/thermal_zone0/temp")%>&deg;C</td></tr>' /usr/lib/lua/luci/view/admin_status/index.htm
 # sed -i 's/or "1"%>/or "1"%> ( <%=luci.sys.exec("expr `cat \/sys\/class\/thermal\/thermal_zone0\/temp` \/ 1000") or "?"%> \&#8451; ) /g' feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+
+#增加Wifi温度显示
+sed -i '/msgid "2.4G Temperature"/a msgstr "2.4G 温度"' ./package/lean/default-settings/po/zh-cn/default.po
+sed -i '/msgid "5G Temperature"/a msgstr "5G 温度"' ./package/lean/default-settings/po/zh-cn/default.po
+sed -i '/cpuusage[[:space:]]* = cpu_usage,/a \
+            cputemp     = cpu_temp,\
+            wifi1temp   = wifi1_temp,\
+            wifi2temp   = wifi2_temp,' ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+
+sed -i '/e.innerHTML = info.cpuusage;/a \
+\
+            if (e = document.getElementById('"'"'cputemp'"'"'))\
+              e.innerHTML = info.cputemp;\
+\
+            if (e = document.getElementById('"'"'wifi1temp'"'"'))\
+                e.innerHTML = info.wifi1temp;\
+\
+            if (e = document.getElementById('"'"'wifi2temp'"'"'))\
+                e.innerHTML = info.wifi2temp;' ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+
+sed -i '/<tr><td width="33%"><%:CPU usage (%)%><\/td><td id="cpuusage">-<\/td><\/tr>/a \
+        <tr>\
+            <td width="33%"><%:Temperature%><\/td>\
+            <td>\
+                <a>(<%:CPU Temperature%><\/a>\
+                <a id="cputemp"><\/a>\
+                <a>)   (<%:2.4G Temperature%><\/a>\
+                <a id="wifi1temp"><\/a>\
+                <a>)   (<%:5G Temperature%><\/a>\
+                <a id="wifi2temp"><\/a>\
+                <a>)<\/a>\
+            </td>\
+        <\/tr>' feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+
+
 #根据源码来修改
 if [[ $openWRT_URL == *"lede"* ]] ; then
   #修改默认时间格式
