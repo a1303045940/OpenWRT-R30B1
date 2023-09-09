@@ -28,6 +28,6 @@ jobs:
       #https://github.com/abandon-xyz/lede.git
       #https://github.com/aiamadeus/lede.git
       #https://github.com/coolsnowwolf/lede.git
-      openWRT_URL: https://github.com/coolsnowwolf/lede.git
+      openWRT_URL: https://github.com/JianJia2018/lede.git
       #默认分支
       openWRT_BRANCH: master
