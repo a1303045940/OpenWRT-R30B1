@@ -46,7 +46,7 @@ sed -i '/<tr><td width="33%"><%:CPU usage (%)%><\/td><td id="cpuusage">-<\/td><\
                 <a id="wifi2temp"><\/a>\
                 <a>)<\/a>\
             </td>\
-        <\/tr>' feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+        <\/tr>' ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
 
 
 #根据源码来修改
