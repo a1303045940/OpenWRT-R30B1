@@ -22,25 +22,25 @@ sed -i '/msgid "5G Temperature"/a msgstr "5G 温度"' ./package/lean/default-set
 cat ./package/lean/default-settings/po/zh-cn/default.po
 
 sed -i '/local cpu_usage =/a\
-local cpu_temp = luci.sys.exec("echo $(awk {'\''print sprintf(\"%.2f\",$1/1000)'\''} /sys/class/thermal/thermal_zone0/temp) ℃")\
-local wifi1_temp = luci.sys.exec("echo $(awk {'\''print sprintf(\"%.f\",$1/1000)'\''} /sys/class/ieee80211/phy0/hwmon1/temp1_input) ℃")\
-local wifi2_temp = luci.sys.exec("echo $(awk {'\''print sprintf(\"%.f\",$1/1000)'\''} /sys/class/ieee80211/phy1/hwmon2/temp1_input) ℃")' ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+		local cpu_temp = luci.sys.exec("echo $(awk {'\''print sprintf(\"%.2f\",$1/1000)'\''} /sys/class/thermal/thermal_zone0/temp) ℃")\
+    local wifi1_temp = luci.sys.exec("echo $(awk {'\''print sprintf(\"%.f\",$1/1000)'\''} /sys/class/ieee80211/phy0/hwmon1/temp1_input) ℃")\
+    local wifi2_temp = luci.sys.exec("echo $(awk {'\''print sprintf(\"%.f\",$1/1000)'\''} /sys/class/ieee80211/phy1/hwmon2/temp1_input) ℃")' ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
 
 sed -i '/cpuusage[[:space:]]* = cpu_usage,/a \
-            cputemp     = cpu_temp,\
-            wifi1temp   = wifi1_temp,\
-            wifi2temp   = wifi2_temp,' ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+			cputemp     = cpu_temp,\
+			wifi1temp   = wifi1_temp,\
+			wifi2temp   = wifi2_temp,' ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
 
 sed -i '/e.innerHTML = info.cpuusage;/a \
 \
-            if (e = document.getElementById('"'"'cputemp'"'"'))\
-              e.innerHTML = info.cputemp;\
+			if (e = document.getElementById('"'"'cputemp'"'"'))\
+				e.innerHTML = info.cputemp;\
 \
-            if (e = document.getElementById('"'"'wifi1temp'"'"'))\
-                e.innerHTML = info.wifi1temp;\
+			if (e = document.getElementById('"'"'wifi1temp'"'"'))\
+				e.innerHTML = info.wifi1temp;\
 \
-            if (e = document.getElementById('"'"'wifi2temp'"'"'))\
-                e.innerHTML = info.wifi2temp;' ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+			if (e = document.getElementById('"'"'wifi2temp'"'"'))\
+				e.innerHTML = info.wifi2temp;' ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
 
 sed -i '/<tr><td width="33%"><%:CPU usage (%)%><\/td><td id="cpuusage">-<\/td><\/tr>/a \
         <tr>\
