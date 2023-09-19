@@ -43,17 +43,6 @@ jobs:
       - name: Checkout Projects
         uses: actions/checkout@main
 
-      - name: Free Disk Space
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: false
-          dotnet: true
-          android: true
-          haskell: true
-          swap-storage: true
-          docker-images: true
-          large-packages: true
-
       - name: Initialization Environment
         env:
           DEBIAN_FRONTEND: noninteractive
