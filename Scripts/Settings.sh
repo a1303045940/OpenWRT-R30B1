@@ -59,7 +59,20 @@ sed -i '/<tr><td width="33%"><%:CPU usage (%)%><\/td><td id="cpuusage">-<\/td><\
 cat ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
 
 #根据源码来修改
-if [[ $openWRT_URL == *"lede"* ]] ; then
-  #修改默认时间格式
-  sed -i 's/os.date()/os.date("%Y-%m-%d %H:%M 星期%w")/g' $(find ./package/*/autocore/files/ -type f -name "index.htm")
+if [[ $WRT_URL == *"lede"* ]]; then
+	LEDE_FILE=$(find ./package/lean/autocore/ -type f -name "index.htm")
+	#修改默认时间格式
+	sed -i 's/os.date()/os.date("%Y-%m-%d %H:%M 星期%w")/g' $LEDE_FILE
+	#添加编译日期标识
+	sed -i "s/(\(<%=pcdata(ver.luciversion)%>\))/\1 \/ $openWRT_REPO-$openWRT_DATE/" $LEDE_FILE
+fi
+
+
+#修改Tiny Filemanager汉化
+if [ -d *"tinyfilemanager"* ]; then
+	PO_FILE="./luci-app-tinyfilemanager/po/zh_Hans/tinyfilemanager.po"
+	sed -i '/msgid "Tiny File Manager"/{n; s/msgstr.*/msgstr "文件管理器"/}' $PO_FILE
+	sed -i 's/启用用户验证/用户验证/g;s/家目录/初始目录/g;s/Favicon 路径/收藏夹图标路径/g' $PO_FILE
+
+	echo "tinyfilemanager date has been updated!"
 fi

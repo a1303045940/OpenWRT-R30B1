@@ -59,6 +59,7 @@ jobs:
       - name: Initialization Values
         run: |
           export openWRT_DATE=$(TZ=UTC-8 date +"%y.%m.%d_%H.%M.%S")
+          export openWRT_REPO=$(basename $GITHUB_WORKSPACE)
           export openWRT_SOURCE=$(echo $openWRT_URL | cut -d '/' -f 5)
           export openWRT_TYPE=$(sed -n "1{s/^#//;s/\r$//;p;q}" $GITHUB_WORKSPACE/Config/$openWRT_TARGET.txt)
 
@@ -68,6 +69,7 @@ jobs:
           echo "openWRT_TYPE=$openWRT_TYPE" >> $GITHUB_ENV
           echo "openWRT_PW=$openWRT_PW" >> $GITHUB_ENV
           echo "openWRT_IP=$openWRT_IP" >> $GITHUB_ENV
+          echo "openWRT_REPO=$openWRT_REPO" >> $GITHUB_ENV
 
       - name: Check Scripts
         run: |

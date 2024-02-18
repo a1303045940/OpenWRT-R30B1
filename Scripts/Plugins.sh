@@ -30,12 +30,13 @@ rm -rf ../../customfeeds/luci/applications/luci-app-unblockmusic
 #vssr
 
 rm -rf package/helloworld
-git clone --depth=1 --single-branch --branch "main" https://github.com/fw876/helloworld.git
-git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall.git
-git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall-packages.git
-git clone --depth=1 --single-branch --branch "master" https://github.com/jerrykuku/lua-maxminddb.git
+#git clone --depth=1 --single-branch --branch "main" https://github.com/fw876/helloworld.git
+#git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall.git
+#git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall-packages.git
+#git clone --depth=1 --single-branch --branch "master" https://github.com/jerrykuku/lua-maxminddb.git
 
-
+rm -rf package/luci-app-luci-app-tinyfilemanager
+git clone --depth 1 --branch master --single-branch --no-checkout https://github.com/muink/luci-app-tinyfilemanager.git package/luci-app-tinyfilemanager
 
 #mosdns
 rm -rf feeds/packages/net/v2ray-geodata
