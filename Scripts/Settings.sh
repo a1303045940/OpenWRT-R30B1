@@ -11,6 +11,9 @@ sed -i "s/hostname='.*'/hostname='$openWRT_NAME'/g" ./package/base-files/files/b
 #修改默认时区
 sed -i "s/timezone='.*'/timezone='CST-8'/g" ./package/base-files/files/bin/config_generate
 sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" ./package/base-files/files/bin/config_generate
+
+#修默认bash
+sed -i 's/\/bin\/ash/\/bin\/bash/g' ./package/base-files/files/etc/passwd
 #增加CPU温度显示
 # sed -i '710 a <tr><td width="33%"><%:CPU Temperature%></td><td><%=luci.sys.exec("cut -c1-2 /sys/class/thermal/thermal_zone0/temp")%>&deg;C</td></tr>' /usr/lib/lua/luci/view/admin_status/index.htm
 # sed -i 's/or "1"%>/or "1"%> ( <%=luci.sys.exec("expr `cat \/sys\/class\/thermal\/thermal_zone0\/temp` \/ 1000") or "?"%> \&#8451; ) /g' feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
@@ -67,6 +70,7 @@ if [[ $WRT_URL == *"lede"* ]]; then
 	sed -i "s/(\(<%=pcdata(ver.luciversion)%>\))/\1 \/ $openWRT_REPO-$openWRT_DATE/" $LEDE_FILE
 fi
 
+sed -i 's:/bin/ash:/bin/bash:g' /etc/passwd
 
 #修改Tiny Filemanager汉化
 if [ -d *"tinyfilemanager"* ]; then
