@@ -49,6 +49,7 @@ jobs:
         run: |
           docker rmi $(docker images -q)
           sudo -E apt -yqq update
+          sudo -E apt -yqq purge $(sed -n "1{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt)
           sudo -E apt -yqq full-upgrade
           sudo -E apt -yqq install $(sed "{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt)
           sudo -E apt -yqq autoremove --purge
@@ -56,6 +57,7 @@ jobs:
           sudo -E apt -yqq clean
           sudo -E systemctl daemon-reload
           sudo -E timedatectl set-timezone "Asia/Shanghai"
+          sudo -E rm -rf $(sed -n "3{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt)
 
       - name: Initialization Values
         run: |
@@ -154,7 +156,7 @@ jobs:
           files: ./openwrt/upload/*.*
           body: |
             wr30u固件
-            
+
             源码地址: ${{env.openWRT_URL}}
             源码：${{env.openWRT_SOURCE}}
             平台：${{env.openWRT_TARGET}}
