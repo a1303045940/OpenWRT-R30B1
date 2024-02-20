@@ -65,7 +65,7 @@ cat ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
 if [[ $WRT_URL == *"lede"* ]]; then
 	LEDE_FILE=$(find ./package/lean/autocore/ -type f -name "index.htm")
 	#修改默认时间格式
-  sed -i 's/os.date()/os.date("%Y-%m-%d %H:%M 星期%w")/g' $(find ./package/*/autocore/files/ -type f -name "index.htm")
+  sed -i 's/os.date()/os.date("%Y-%m-%d %H:%M 星期%w")/g' $LEDE_FILE
 fi
 
 sed -i 's:/bin/ash:/bin/bash:g' /etc/passwd
