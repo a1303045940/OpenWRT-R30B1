@@ -69,3 +69,7 @@ if [[ $WRT_URL == *"lede"* ]]; then
 fi
 
 sed -i 's:/bin/ash:/bin/bash:g' /etc/passwd
+
+sed -i "/helloworld/d" "feeds.conf.default"
+echo "src-git helloworld https://github.com/fw876/helloworld.git" >> "feeds.conf.default"
+./scripts/feeds update -a && ./scripts/feeds install -a
