@@ -30,10 +30,12 @@ rm -rf ../../customfeeds/luci/applications/luci-app-unblockmusic
 #vssr
 
 rm -rf package/helloworld
-git clone --depth=1 --single-branch --branch "main" https://github.com/fw876/helloworld.git
+# git clone --depth=1 --single-branch --branch "main" https://github.com/fw876/helloworld.git
 #git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall.git
 #git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall-packages.git
 #git clone --depth=1 --single-branch --branch "master" https://github.com/jerrykuku/lua-maxminddb.git
+sed -i "/helloworld/d" "feeds.conf.default"
+echo "src-git helloworld https://github.com/fw876/helloworld.git" >> "feeds.conf.default"
 
 rm -rf package/luci-app-tinyfilemanager
 git clone --depth=1 --single-branch "master" https://github.com/muink/luci-app-tinyfilemanager.git
