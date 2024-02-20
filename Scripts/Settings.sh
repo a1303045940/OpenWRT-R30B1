@@ -69,12 +69,3 @@ if [[ $WRT_URL == *"lede"* ]]; then
 fi
 
 sed -i 's:/bin/ash:/bin/bash:g' /etc/passwd
-
-#修改Tiny Filemanager汉化
-if [ -d *"tinyfilemanager"* ]; then
-	PO_FILE="./luci-app-tinyfilemanager/po/zh_Hans/tinyfilemanager.po"
-	sed -i '/msgid "Tiny File Manager"/{n; s/msgstr.*/msgstr "文件管理器"/}' $PO_FILE
-	sed -i 's/启用用户验证/用户验证/g;s/家目录/初始目录/g;s/Favicon 路径/收藏夹图标路径/g' $PO_FILE
-
-	echo "tinyfilemanager date has been updated!"
-fi

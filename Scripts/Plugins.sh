@@ -29,7 +29,7 @@ rm -rf ../../customfeeds/luci/applications/luci-app-unblockmusic
 
 #vssr
 
-rm -rf package/helloworld
+# rm -rf package/helloworld
 # git clone --depth=1 --single-branch --branch "main" https://github.com/fw876/helloworld.git
 #git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall.git
 #git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall-packages.git
@@ -37,8 +37,9 @@ rm -rf package/helloworld
 sed -i "/helloworld/d" "feeds.conf.default"
 echo "src-git helloworld https://github.com/fw876/helloworld.git" >> "feeds.conf.default"
 
-rm -rf package/luci-app-tinyfilemanager
-git clone --depth=1 --single-branch "master" https://github.com/muink/luci-app-tinyfilemanager.git
+# rm -rf package/luci-app-tinyfilemanager
+# git clone --depth=1 --single-branch "master" https://github.com/muink/luci-app-tinyfilemanager.git
+
 
 #mosdns
 rm -rf feeds/packages/net/v2ray-geodata
@@ -79,3 +80,75 @@ git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 # tar -zxf ./dev.tar.gz
 
 # chmod +x ./clash* ; rm -rf ./*.gz
+
+
+
+#!/bin/bash
+
+#更新软件包
+UPDATE_PACKAGE() {
+	local PKG_NAME=$1
+	local PKG_REPO=$2
+	local PKG_BRANCH=$3
+	local PKG_SPECIAL=$4
+	local REPO_NAME=$(echo $PKG_REPO | cut -d '/' -f 2)
+
+	rm -rf $(find ../feeds/luci/ -type d -iname "*$PKG_NAME*" -prune)
+
+	git clone --depth=1 --single-branch --branch $PKG_BRANCH "https://github.com/$PKG_REPO.git"
+
+	if [[ $PKG_SPECIAL == "pkg" ]]; then
+		cp -rf $(find ./$REPO_NAME/ -type d -iname "*$PKG_NAME*" -prune) ./
+		rm -rf ./$REPO_NAME
+	elif [[ $PKG_SPECIAL == "name" ]]; then
+		mv -f $REPO_NAME $PKG_NAME
+	fi
+}
+
+UPDATE_PACKAGE "tinyfilemanager" "muink/luci-app-tinyfilemanager" "master"
+
+#修改Tiny Filemanager汉化
+if [ -d *"tinyfilemanager"* ]; then
+	PO_FILE="./luci-app-tinyfilemanager/po/zh_Hans/tinyfilemanager.po"
+	sed -i '/msgid "Tiny File Manager"/{n; s/msgstr.*/msgstr "文件管理器"/}' $PO_FILE
+	sed -i 's/启用用户验证/用户验证/g;s/家目录/初始目录/g;s/Favicon 路径/收藏夹图标路径/g' $PO_FILE
+
+	echo "tinyfilemanager date has been updated!"
+fi
+
+#UPDATE_PACKAGE "design" "gngpp/luci-theme-design" "$([[ $WRT_URL == *"lede"* ]] && echo "main" || echo "js")"
+#UPDATE_PACKAGE "design-config" "gngpp/luci-app-design-config" "master"
+
+# UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main"
+# UPDATE_PACKAGE "passwall2" "xiaorouji/openwrt-passwall2" "main"
+# UPDATE_PACKAGE "passwall-packages" "xiaorouji/openwrt-passwall-packages" "main"
+UPDATE_PACKAGE "helloworld" "fw876/helloworld" "master"
+# UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev"
+
+
+
+#更新软件包版本
+UPDATE_VERSION() {
+	local PKG_NAME=$1
+	local NEW_VER=$2
+	local NEW_HASH=$3
+	local PKG_FILE=$(find ../feeds/packages/*/$PKG_NAME/ -type f -name "Makefile" 2>/dev/null)
+
+	if [ -f "$PKG_FILE" ]; then
+		local OLD_VER=$(grep -Po "PKG_VERSION:=\K.*" $PKG_FILE)
+		if dpkg --compare-versions "$OLD_VER" lt "$NEW_VER"; then
+			sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$NEW_VER/g" $PKG_FILE
+			sed -i "s/PKG_HASH:=.*/PKG_HASH:=$NEW_HASH/g" $PKG_FILE
+			echo "$PKG_NAME ver has updated!"
+		else
+			echo "$PKG_NAME ver is latest!"
+		fi
+	else
+		echo "$PKG_NAME not found!"
+	fi
+}
+
+UPDATE_VERSION "sing-box" "1.8.5" "0d5e6a7198c3a18491ac35807170715118df2c7b77fd02d16d7cfb5791e368ce"
+
+
+./scripts/feeds update -a && ./scripts/feeds install -a
