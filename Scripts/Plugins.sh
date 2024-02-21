@@ -104,16 +104,7 @@ UPDATE_PACKAGE() {
 	fi
 }
 
-UPDATE_PACKAGE "tinyfilemanager" "muink/luci-app-tinyfilemanager" "master"
 
-#修改Tiny Filemanager汉化
-if [ -d *"tinyfilemanager"* ]; then
-	PO_FILE="./luci-app-tinyfilemanager/po/zh_Hans/tinyfilemanager.po"
-	sed -i '/msgid "Tiny File Manager"/{n; s/msgstr.*/msgstr "文件管理器"/}' $PO_FILE
-	sed -i 's/启用用户验证/用户验证/g;s/家目录/初始目录/g;s/Favicon 路径/收藏夹图标路径/g' $PO_FILE
-
-	echo "tinyfilemanager date has been updated!"
-fi
 
 #UPDATE_PACKAGE "design" "gngpp/luci-theme-design" "$([[ $WRT_URL == *"lede"* ]] && echo "main" || echo "js")"
 #UPDATE_PACKAGE "design-config" "gngpp/luci-app-design-config" "master"
@@ -121,7 +112,7 @@ fi
 # UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main"
 # UPDATE_PACKAGE "passwall2" "xiaorouji/openwrt-passwall2" "main"
 # UPDATE_PACKAGE "passwall-packages" "xiaorouji/openwrt-passwall-packages" "main"
-UPDATE_PACKAGE "helloworld" "JianJia2018/helloworld" "master"
+UPDATE_PACKAGE "helloworld" "fw876/helloworld" "master"
 # UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev"
 
 
