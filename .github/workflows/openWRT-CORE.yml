@@ -99,12 +99,14 @@ jobs:
           cd ./package
 
           $GITHUB_WORKSPACE/Scripts/Plugins.sh
-
+          ls
           cd ..
-          cd /feeds/helloworld
+          ls
+          cd ./feeds/helloworld
           git fetch origin pull/1405/head:fix
           git checkout fix
           git merge master -m "Your merge message here"
+          ls
           ../../scripts/feeds install -a
 
       - name: Custom Settings
