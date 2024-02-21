@@ -99,13 +99,12 @@ jobs:
           cd ./package
 
           $GITHUB_WORKSPACE/Scripts/Plugins.sh
-          ls
           cd ..
-          ls
           cd ./feeds/helloworld
+          ls
           git fetch origin pull/1405/head:fix
           git checkout fix
-          git merge master -m "Your merge message here"
+          git merge origin/master -m "Your merge message here" --allow-unrelated-histories
           ls
           ../../scripts/feeds install -a
 
