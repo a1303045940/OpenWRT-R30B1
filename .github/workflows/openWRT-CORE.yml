@@ -123,11 +123,12 @@ jobs:
 
           make download -j$(nproc)
 
-     - name: View Config
+      - name: View Config
         run: |
           cd ./openwrt
 
           cat .config
+      
       - name: Compile Firmware
         run: |
           cd ./openwrt
