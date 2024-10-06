@@ -42,7 +42,8 @@ env:
 
 
 jobs:
-  openwrt_core:
+  core:
+    name: ${{inputs.WRT_SOURCE}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Projects
