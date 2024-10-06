@@ -12,6 +12,10 @@ sed -i "s/hostname='.*'/hostname='$openWRT_NAME'/g" ./package/base-files/files/b
 sed -i "s/timezone='.*'/timezone='CST-8'/g" ./package/base-files/files/bin/config_generate
 sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" ./package/base-files/files/bin/config_generate
 
+#修改默认WIFI名
+sed -i "s/\.ssid=.*/\.ssid=$WRT_WIFI/g" $(find ./package/kernel/mac80211/ ./package/network/config/ -type f -name "mac80211.*")
+
+
 #修默认bash
 sed -i 's/\/bin\/ash/\/bin\/bash/g' ./package/base-files/files/etc/passwd
 #增加CPU温度显示

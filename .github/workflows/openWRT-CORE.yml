@@ -26,6 +26,9 @@ on:
       openWRT_IP:
         required: true
         type: string
+      WRT_WIFI:
+        required: true
+        type: string
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   openWRT_TARGET: ${{inputs.openWRT_TARGET}}
@@ -35,6 +38,8 @@ env:
   openWRT_BRANCH: ${{inputs.openWRT_BRANCH}}
   openWRT_PW: ${{inputs.openWRT_PW}}
   openWRT_IP: ${{inputs.openWRT_IP}}
+  WRT_WIFI: ${{inputs.WRT_WIFI}}
+
 
 jobs:
   openwrt_core:
