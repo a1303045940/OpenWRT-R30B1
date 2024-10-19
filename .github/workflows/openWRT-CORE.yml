@@ -118,7 +118,7 @@ jobs:
         id: check-cache
         uses: actions/cache@main
         with:
-          key: ${{env.WRT_TARGET}}-${{env.WRT_VER}}-${{env.WRT_HASH}}
+          key: ${{env.openWRT_TARGET}}-${{env.openWRT_TYPE}}-${{env.WRT_HASH}}
           path: |
             ./openwrt/.ccache
             ./openwrt/staging_dir/host*
@@ -134,7 +134,7 @@ jobs:
           else
             gh extension install actions/gh-actions-cache
 
-            CACHE_LIST=$(gh actions-cache list --key "$WRT_TARGET-$WRT_VER" | cut -f 1)
+            CACHE_LIST=$(gh actions-cache list --key "$openWRT_TARGET-$openWRT_TYPE" | cut -f 1)
             for CACHE_KEY in $CACHE_LIST; do
                gh actions-cache delete $CACHE_KEY --confirm
             done
