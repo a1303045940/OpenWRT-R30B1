@@ -72,17 +72,20 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          docker images -q | xargs -r docker rmi
-          sudo -E apt -yqq update
-          sudo -E apt -yqq purge $(sed -n "1{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt)
-          sudo -E apt -yqq full-upgrade
-          sudo -E apt -yqq install $(sed -n "2{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt)
-          sudo -E apt -yqq autoremove --purge
-          sudo -E apt -yqq autoclean
-          sudo -E apt -yqq clean
-          sudo -E systemctl daemon-reload
-          sudo -E timedatectl set-timezone "Asia/Shanghai"
-          sudo -E rm -rf $(sed -n "3{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt)
+            docker images -q | xargs -r docker rmi
+            sudo -E apt -yqq update
+            # 忽略 purge 不存在包的错误
+            sudo -E apt -yqq purge $(sed -n "1{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt) || true
+            sudo -E apt -yqq full-upgrade
+            # 安装时确保包存在
+            INSTALL_PKGS=$(sed -n "2{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt)
+            sudo -E apt -yqq install $INSTALL_PKGS || (echo "安装失败：$INSTALL_PKGS" && exit 1)
+            sudo -E apt -yqq autoremove --purge
+            sudo -E apt -yqq autoclean
+            sudo -E apt -yqq clean
+            sudo -E systemctl daemon-reload
+            sudo -E timedatectl set-timezone "Asia/Shanghai"
+            sudo -E rm -rf $(sed -n "3{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt)
 
       - name: Initialization Values
         run: |
