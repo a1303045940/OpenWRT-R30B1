@@ -44,7 +44,7 @@ env:
 jobs:
   core:
     name: ${{inputs.openWRT_URL}}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout Projects
         uses: actions/checkout@main
@@ -67,25 +67,42 @@ jobs:
             /usr/share/azure* /usr/share/dotnet* /usr/share/glade* /usr/share/miniconda* /usr/share/php* /usr/share/swift \
             /var/lib/mysql* /var/log/azure*"
           testing: false
+          
+      - name: 检查服务器配置
+        run: |
+          echo "警告⚠"
+          echo "分配的服务器性能有限，若选择的插件过多，务必注意CPU性能！"
+          echo "云编译建议取消勾选Node.js及其相关插件！"
+          echo "已知CPU型号（降序）：8370C,8272CL,8171M,E5系列"
+          echo "--------------------------CPU信息--------------------------"
+          echo "CPU物理数量:$(cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l)"
+          echo -e "CPU核心及版本信息：$(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
+          echo "--------------------------内存信息--------------------------"
+          echo "已安装内存详细信息："
+          sudo lshw -short -C memory | grep GiB
+          echo -e "\n"
+          echo "--------------------------硬盘信息--------------------------"
+          echo -e  "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
+          echo "硬盘详情："
+          df -Th
 
       - name: Initialization Environment
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-            docker images -q | xargs -r docker rmi
-            sudo -E apt -yqq update
-            # 忽略 purge 不存在包的错误
-            sudo -E apt -yqq purge $(sed -n "1{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt) || true
-            sudo -E apt -yqq full-upgrade
-            # 安装时确保包存在
-            INSTALL_PKGS=$(sed -n "2{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt)
-            sudo -E apt -yqq install $INSTALL_PKGS || (echo "安装失败：$INSTALL_PKGS" && exit 1)
-            sudo -E apt -yqq autoremove --purge
-            sudo -E apt -yqq autoclean
-            sudo -E apt -yqq clean
-            sudo -E systemctl daemon-reload
-            sudo -E timedatectl set-timezone "Asia/Shanghai"
-            sudo -E rm -rf $(sed -n "3{s/\r$//g;p;q}" $GITHUB_WORKSPACE/Depends.txt)
+          docker images -q | xargs -r docker rmi
+          sudo -E apt-get -qq update -y
+          sudo -E apt-get -qq full-upgrade -y
+          sudo -E apt-get -qq install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+          bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext \
+          genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev \
+          libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev \
+          libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf \
+          python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion \
+          swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev libfuse-dev
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+          sudo timedatectl set-timezone "$TZ"
 
       - name: Initialization Values
         run: |
