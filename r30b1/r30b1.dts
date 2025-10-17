@@ -11,7 +11,7 @@
 
 / {
 	model = "CLT R30B1";
-	compatible = "cmcc,rax3000m", "mediatek,mt7981";
+	compatible = "clt,r30b1", "mediatek,mt7981";
 
 	aliases {
 		led-boot = &red_led;
