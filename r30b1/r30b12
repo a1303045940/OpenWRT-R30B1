@@ -4,8 +4,8 @@
 #include "mt7981b-cmcc-rax3000m.dts"
 
 / {
-	model = "CMCC RAX3000M (NAND version)";
-	compatible = "cmcc,rax3000m-nand", "mediatek,mt7981";
+	model = "CLT R30B1";
+	compatible = "clt,r30b1", "mediatek,mt7981";
 
 	aliases {
 		label-mac-device = &gmac1;
