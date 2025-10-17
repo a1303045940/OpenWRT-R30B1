@@ -30,7 +30,7 @@ on:
         required: true
         type: string
 env:
-  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
   openWRT_TARGET: ${{inputs.openWRT_TARGET}}
   openWRT_THEME: ${{inputs.openWRT_THEME}}
   openWRT_NAME: ${{inputs.openWRT_NAME}}
