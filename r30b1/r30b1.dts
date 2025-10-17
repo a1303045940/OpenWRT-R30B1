@@ -46,24 +46,51 @@
 		};
 	};
 
-	gpio-leds {
+leds {
 		compatible = "gpio-leds";
 
-		green_led: led-0 {
-			label = "green:status";
-			gpios = <&pio 9 GPIO_ACTIVE_LOW>;
-		};
-
-		led-1 {
-			label = "blue:status";
+		power_led: power_red {
+			label = "red_power";
 			gpios = <&pio 12 GPIO_ACTIVE_LOW>;
+			default-state = "on";
+			linux,default-trigger = "default-on";
 		};
 
-		red_led: led-2 {
-			label = "red:status";
-			gpios = <&pio 35 GPIO_ACTIVE_LOW>;
+		system_led: wan_green {
+			label = "green:wan";
+			gpios = <&pio 6 GPIO_ACTIVE_LOW>;
+		};
+
+		wan_red {
+			label = "red:wan";
+			gpios = <&pio 5 GPIO_ACTIVE_LOW>;
+		};
+
+		mesh_blue {
+			label = "blue:mesh";
+			gpios = <&pio 13 GPIO_ACTIVE_LOW>;
+		};
+
+		wifi_green {
+			label = "green:wifi";
+			gpios = <&pio 34 GPIO_ACTIVE_LOW>;
+		};
+
+		internet_blue {
+			label = "blue:internet";
+			gpios = <&pio 11 GPIO_ACTIVE_LOW>;
+		};
+
+		all_ctrl {
+			label = "ctrl_all";
+			gpios = <&pio 8 GPIO_ACTIVE_LOW>;
+			default-state = "on";
+			linux,default-trigger = "default-on";
 		};
 	};
+
+
+
 };
 
 &eth {
