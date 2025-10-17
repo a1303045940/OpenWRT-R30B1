@@ -189,7 +189,7 @@ jobs:
           $GITHUB_WORKSPACE/Scripts/Extras.sh
 
           #lede/target/linux/mediatek/dts/mt7981b-cmcc-rax3000m.dts
-          cp "$GITHUB_WORKSPACE/r30b1/r30b1.dts" lede/target/linux/mediatek/dts/mt7981b-cmcc-rax3000m.dts
+          cp "$GITHUB_WORKSPACE/r30b1/r30b1.dts" target/linux/mediatek/dts/mt7981b-cmcc-rax3000m.dts
           chmod +x package/base-files/files/etc/npc.conf
 
           make defconfig
