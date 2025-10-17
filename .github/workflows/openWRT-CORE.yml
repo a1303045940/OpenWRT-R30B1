@@ -177,6 +177,7 @@ jobs:
           cd ./package
 
           $GITHUB_WORKSPACE/Scripts/Plugins.sh
+          #lede/target/linux/mediatek/dts/mt7981b-cmcc-rax3000m.dts
 
       - name: Custom Settings
         run: |
