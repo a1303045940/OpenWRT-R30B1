@@ -20,7 +20,10 @@ sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.::0:99999:7
 
 #修改默认WIFI名
 sed -i "s/\.ssid=.*/\.ssid=$WRT_WIFI/g" $(find ./package/kernel/mac80211/ ./package/network/config/ -type f -name "mac80211.*")
-
+#修改WIFI加密
+sed -i "s/encryption=.*/encryption='psk2+ccmp'/g" $WIFI_FILE
+#修改WIFI密码
+sed -i "/set wireless.default_\${dev}.encryption='psk2+ccmp'/a \\\t\t\t\t\t\set wireless.default_\${dev}.key='$WRT_WORD'" $WIFI_FILE
 
 #修默认bash
 sed -i 's/\/bin\/ash/\/bin\/bash/g' ./package/base-files/files/etc/passwd
