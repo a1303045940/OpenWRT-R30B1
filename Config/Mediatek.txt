@@ -4,4 +4,6 @@ CONFIG_TARGET_mediatek=y
 CONFIG_TARGET_mediatek_filogic=y
 #CONFIG_TARGET_DEVICE_mediatek_filogic_DEVICE_xiaomi_mi-router-wr30u=y
 CONFIG_TARGET_DEVICE_mediatek_mt7981_DEVICE_cmcc_rax3000m=y
+CONFIG_TARGET_DEVICE_mediatek_mt7981_DEVICE_clt_r30b1=y
+
 
