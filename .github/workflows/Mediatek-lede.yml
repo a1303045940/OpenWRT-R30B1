@@ -25,7 +25,7 @@ jobs:
       #默认地址
       openWRT_IP: 192.168.6.1
       #默认WIFI名
-      WRT_WIFI: CMMCC-3875
+      WRT_WIFI: Openwrt
       #默认源码
       #https://github.com/abandon-xyz/lede.git
       #https://github.com/aiamadeus/lede.git
