@@ -191,6 +191,8 @@ jobs:
           #lede/target/linux/mediatek/dts/mt7981b-cmcc-rax3000m.dts
           cp "$GITHUB_WORKSPACE/r30b1/r30b1.dts" target/linux/mediatek/dts/mt7981b-cmcc-rax3000m.dts
           chmod +x target/linux/mediatek/dts/mt7981b-cmcc-rax3000m.dts
+          cp "$GITHUB_WORKSPACE/r30b1/r30b12.dts" target/linux/mediatek/mt7981b-cmcc-rax3000m-nand.dts
+          chmod +x target/linux/mediatek/dts/mt7981b-cmcc-rax3000m-nand.dts
 
           make defconfig
 
