@@ -244,7 +244,7 @@ jobs:
           tag_name: ${{env.openWRT_TARGET}}_${{env.openWRT_SOURCE}}_${{env.openWRT_DATE}}
           files: ./openwrt/upload/*.*
           body: |
-            wr30u固件
+            r30b1固件
 
             源码地址: ${{env.openWRT_URL}}
             源码：${{env.openWRT_SOURCE}}
@@ -257,7 +257,7 @@ jobs:
         uses: dev-drprasad/delete-older-releases@master
         with:
           keep_latest: 5
-          delete_tags: true
+          delete_tags: false
 
       - name: Delete Old Workflows
         uses: Mattraks/delete-workflow-runs@main
