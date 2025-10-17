@@ -9,7 +9,7 @@ https://github.com/coolsnowwolf/lede
 固件信息里的时间为编译开始的时间，方便核对上游源码提交时间
 
 
-Mediatek: WR30U
+Mediatek: r30b1
 # 目录简要说明：
 
 Depends.txt——环境依赖列表
