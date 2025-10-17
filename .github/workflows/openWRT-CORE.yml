@@ -145,6 +145,7 @@ jobs:
 
       - name: Update Caches
         run: |
+          set -euo pipefail
           if ${{steps.check-cache.outputs.cache-hit == 'true'}}; then
             sed -i 's/ $(tool.*\/stamp-compile)//g' ./openwrt/Makefile
             sed -i 's/ $(tool.*\/stamp-install)//g' ./openwrt/Makefile
@@ -160,6 +161,8 @@ jobs:
 
             echo "caches cleanup done!"
           fi
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Update Feeds
         run: |
