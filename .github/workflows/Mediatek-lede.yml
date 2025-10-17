@@ -19,11 +19,11 @@ jobs:
       #默认主题
       openWRT_THEME: design
       #默认主机名
-      openWRT_NAME: WR30U
+      openWRT_NAME: R30B1
       #默认密码，仅作展示，请勿乱改
       openWRT_PW: 无
       #默认地址
-      openWRT_IP: 192.168.0.1
+      openWRT_IP: 192.168.6.1
       #默认WIFI名
       WRT_WIFI: CMMCC-3875
       #默认源码
