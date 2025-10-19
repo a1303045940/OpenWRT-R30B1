@@ -6,7 +6,7 @@ rm -rf $(find ./feeds/luci/ -type d -regex ".*\(argon\|passwall\).*")
 sed -i "s/luci-theme-bootstrap/luci-theme-design/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
 echo "CONFIG_PACKAGE_luci-app-design-config=y" >> .config
 #修改默认IP地址
-sed -i "s/192\.168\.[0-9]*\.[0-9]*/192.168.0.2/g" ./package/base-files/files/bin/config_generate
+sed -i "s/192\.168\.[0-9]*\.[0-9]*/192.168.6.1/g" ./package/base-files/files/bin/config_generate
 #修改默认主机名
 sed -i "s/hostname='.*'/hostname='PI_Zero'/g" ./package/base-files/files/bin/config_generate
 #修改默认时区
